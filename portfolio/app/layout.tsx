@@ -2,6 +2,7 @@
 // Pour un affichage sur toutes les pages
 import Navbar from "./components/NavBar";
 import type { NavItem } from "./types/NavItems";
+import "../styles/global.css";
 
 const portfolioLinks: NavItem[] = [
 	{

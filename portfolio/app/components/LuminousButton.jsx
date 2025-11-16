@@ -3,21 +3,22 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function LuminousButton() {
-	// 1. Définition de l'état (Hook useState)
-	// L'état 'isLit' est un booléen, initialisé à false (éteint).
-	// TypeScript infère automatiquement le type 'boolean' [2].
 	const [isLit, setIsLit] = useState(false);
-	// 2. Gestionnaire d'événement (Event Handler)
-	// Cette fonction est appelée lors du clic sur le bouton.
-	const handleClick = () => {
+	const handleClick = (e) => {
+		console.log("Bouton cliqué - isLit avant:", isLit);
+		e.preventDefault();
 		setIsLit(!isLit);
+		console.log("isLit après setState:", !isLit);
 	};
-	// 3. Classes CSS
-	// On utilise des classes Tailwind pour créer un bouton avec un effet de lumière.
-	const buttonClasses = `px-8 py-3 font-bold rounded-lg transition-all duration-300 ${isLit ? "bg-blue-500 text-white" : "bg-gray-200 text-gray-800"}`;
-	// 4. Retour du composant
+	const buttonClasses = `px-8 py-3 font-bold rounded-lg transition-all duration-300 
+    ${
+			isLit
+				? "bg-green-500 text-white shadow-lg shadow-green-500/50"
+				: "bg-gray-700 text-gray-300 hover:bg-gray-600"
+		}`;
+	console.log("Rendu - classes appliquées:", buttonClasses);
 	return (
-		<Link href="#events">
+		<Link href="#" passHref>
 			<button type="button" onClick={handleClick} className={buttonClasses}>
 				{isLit ? "mode lumineux Activé" : "Explorez mes Projets"}
 			</button>

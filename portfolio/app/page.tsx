@@ -1,4 +1,5 @@
 // page.tsx est la page d'accueil
+"use client";
 import LuminousButton from "./components/LuminousButton";
 export default function Home() {
 	return (

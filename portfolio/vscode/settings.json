@@ -1,0 +1,21 @@
+{
+	"css.lint.unknownAtRules": "ignore",
+	"files.associations": {
+		"*.css": "tailwindcss"
+	},
+	"rules": {
+		"at-rule-no-unknown": [
+			true,
+			{
+				"ignoreAtRules": [
+					"tailwind",
+					"apply",
+					"layer",
+					"variants",
+					"responsive",
+					"screen"
+				]
+			}
+		]
+	}
+}
