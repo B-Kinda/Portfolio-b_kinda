@@ -13,14 +13,14 @@ export default function LuminousButton() {
 	const buttonClasses = `px-8 py-3 font-bold rounded-lg transition-all duration-300 
     ${
 			isLit
-				? "bg-green-500 text-white shadow-lg shadow-green-500/50"
+				? "bg-blue-500 text-white shadow-lg shadow-blue-500/50"
 				: "bg-gray-700 text-gray-300 hover:bg-gray-600"
 		}`;
 	console.log("Rendu - classes appliquées:", buttonClasses);
 	return (
 		<Link href="#" passHref>
 			<button type="button" onClick={handleClick} className={buttonClasses}>
-				{isLit ? "mode lumineux Activé" : "Explorez mes Projets"}
+				{isLit ? "Challenges Techniques" : "Voir les Challenges Techniques"}
 			</button>
 		</Link>
 	);
