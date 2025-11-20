@@ -1,4 +1,4 @@
-// --- Types externes (idéalement dans un fichier dédié) ---
+// -------------------- Types externes navigation (idéalement dans un fichier dédié) -------------------
 export type NavItem = {
 	label: string;
 	href: string;
