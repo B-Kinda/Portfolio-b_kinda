@@ -1,4 +1,5 @@
 import LuminousButton from "./LuminousButton";
+import Image from "next/image";
 
 export default function Hero() {
 	return (
@@ -16,7 +17,22 @@ export default function Hero() {
 					Next.js, je conçois des solutions monolithiques sécurisées et
 					performantes.
 				</p>
-				<div>
+				<div className="flex flex-col items-center gap-4">
+					<Image
+						src="/images/profil/photo profil.jpg"
+						alt="Profil"
+						width={200}
+						height={200}
+						className="rounded-full shadow-lg"
+					/>
+					<p className="text-lg">
+						Je m&apos;appelle Baptiste, jeune développeur passionné par le web.
+						Lorem ipsum dolor sit, amet consectetur adipisicing elit. Mollitia
+						quam autem adipisci neque unde rerum ipsa porro eaque possimus
+						soluta amet, quasi iste eveniet deserunt esse quod sint ab eos?
+					</p>
+				</div>
+				<div className="h-4">
 					<LuminousButton />
 				</div>
 			</div>

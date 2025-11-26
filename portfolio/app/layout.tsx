@@ -25,7 +25,7 @@ export default function RootLayout({
 }) {
 	return (
 		<html lang="fr">
-			<body>
+			<body className="p-4">
 				{/* Le compilateur TypeScript vérifie ici que vous passez bien un tableau de NavItem */}
 				<Navbar
 					links={portfolioLinks}
