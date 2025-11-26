@@ -8,7 +8,7 @@ export default function LuminousButton({
 	activeText = "Mes projets",
 	isActive: externalIsActive = false,
 	onToggle,
-	href = "#",
+	href = "/projects",
 	className = "",
 }: ButtonProps) {
 	const [isLit, setIsLit] = useState(false);

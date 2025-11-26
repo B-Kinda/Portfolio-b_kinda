@@ -1,4 +1,3 @@
-import Link from "next/link";
 import LuminousButton from "./LuminousButton";
 
 export default function Hero() {
