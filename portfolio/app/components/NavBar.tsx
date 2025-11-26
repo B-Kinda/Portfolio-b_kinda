@@ -10,7 +10,7 @@ export default function Navbar({ links, welcomeMessage }: NavbarProps) {
 	console.log(links);
 	return (
 		<header className="gaming-darker p-4">
-			<nav className="flex justify-between items-center">
+			<nav className="flex justify-between items-center text-white">
 				{/* Logo */}
 				{welcomeMessage && <p>{welcomeMessage}</p>}
 
@@ -18,7 +18,9 @@ export default function Navbar({ links, welcomeMessage }: NavbarProps) {
 					{links.map((item) => (
 						<li key={item.href}>
 							{/* Le key est obligatoire pour les éléments de liste mappés en React */}
-							<Link href={item.href}>{item.label}</Link>
+							<Link href={item.href} className="text-white">
+								{item.label}
+							</Link>
 						</li>
 					))}
 				</ul>

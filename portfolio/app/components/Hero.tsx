@@ -18,9 +18,7 @@ export default function Hero() {
 					performantes.
 				</p>
 				<div>
-					<Link href="/challenges">
-						<LuminousButton />
-					</Link>
+					<LuminousButton />
 				</div>
 			</div>
 		</section>
