@@ -1,37 +1,110 @@
+# Portfolio Développeur Full Stack
 
-Ceci est un projet [Next.js](https://nextjs.org/) initialisé avec [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-## Pour commencer
+Portfolio professionnel développé avec Next.js, TypeScript et Tailwind CSS, mettant en valeur mes compétences et projets en développement web.
 
-D'abord, lancez le serveur de développement :
+## 🚀 Fonctionnalités
 
-```bash
-npm run dev
-# ou
-yarn dev
-# ou
-pnpm dev
-# ou
-bun dev
+- **Design Moderne** : Interface utilisateur responsive et élégante
+- **Performant** : Optimisation des images et chargement paresseux
+- **Typage Fort** : Développé avec TypeScript pour une meilleure maintenabilité
+- **Animations** : Effets visuels fluides avec Framer Motion
+- **Projets** : Galerie de projets avec filtrage par technologies
+
+## 🛠️ Technologies Utilisées
+
+- **Framework** : Next.js 14 avec App Router
+- **Langage** : TypeScript
+- **Styling** : Tailwind CSS
+- **Animations** : Framer Motion
+- **Optimisation** : Next/Image, Lazy Loading
+- **Gestion d'État** : React Hooks
+
+## 📁 Structure du Projet
+
+```
+portfolio/
+├── app/                    # Dossier principal de l'application
+│   ├── components/         # Composants réutilisables
+│   ├── types/              # Définitions TypeScript
+│   ├── projects/           # Page des projets
+│   ├── about/              # Page À propos
+│   └── contact/            # Page de contact
+├── public/                 # Fichiers statiques
+│   └── images/             # Images du site
+├── data/                   # Données de l'application
+└── Docs/                   # Documentation et ressources
 ```
 
-Ouvrez [http://localhost:3000](http://localhost:3000/) dans votre navigateur pour voir le résultat.
+## 🚀 Installation
 
-Vous pouvez commencer à modifier la page en modifiant le fichier `app/page.tsx`. La page se mettra à jour automatiquement pendant que vous modifiez le fichier.
+1. **Cloner le dépôt**
+   ```bash
+   git clone https://github.com/B-Kinda/Portfolio-b_kinda.git
+   cd Portfolio-b_kinda/portfolio
+   ```
 
-Ce projet utilise [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) pour optimiser et charger automatiquement [Geist](https://vercel.com/font), une nouvelle famille de polices pour Vercel.
+2. **Installer les dépendances**
+   ```bash
+   npm install
+   # ou
+   yarn install
+   # ou
+   pnpm install
+   ```
 
-## En savoir plus
+3. **Lancer le serveur de développement**
+   ```bash
+   npm run dev
+   # ou
+   yarn dev
+   # ou
+   pnpm dev
+   ```
 
-Pour en savoir plus sur Next.js, consultez les ressources suivantes :
+4. **Ouvrir dans le navigateur**
+   ```
+   http://localhost:3000
+   ```
 
-* [Documentation Next.js](https://nextjs.org/docs) - découvrez les fonctionnalités et l'API de Next.js.
-* [Apprendre Next.js](https://nextjs.org/learn) - un tutoriel interactif sur Next.js.
+## 🎨 Composants Principaux
 
-Vous pouvez également consulter [le dépôt GitHub de Next.js](https://github.com/vercel/next.js) - vos retours et contributions sont les bienvenus !
+### ProjectCard
+Affiche une carte de projet avec image, description et technologies utilisées.
 
-## Déploiement sur Vercel
+### LuminousButton
+Bouton personnalisé avec effet de survol lumineux.
 
-Le moyen le plus simple de déployer votre application Next.js est d'utiliser la [Plateforme Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) des créateurs de Next.js.
+### NavBar
+Barre de navigation responsive avec menu mobile.
 
-Consultez notre [documentation sur le déploiement Next.js](https://nextjs.org/docs/app/building-your-application/deploying) pour plus de détails.
+### Hero
+Section d'accueil avec présentation et appel à l'action.
+
+## 📚 Documentation
+
+Consultez le dossier `Docs/` pour plus d'informations sur :
+- L'architecture du projet
+- Les bonnes pratiques
+- Les guides de développement
+
+## 📄 Licence
+
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues ! N'hésitez pas à ouvrir une issue ou à soumettre une pull request.
+
+## 📬 Contact
+
+- **Email**: [votre@email.com](mailto:votre@email.com)
+- **GitHub**: [@B-Kinda](https://github.com/B-Kinda)
+- **Portfolio**: [lien-vers-votre-portfolio.com](https://lien-vers-votre-portfolio.com)
+
+---
+
+Développé avec ❤️ par Baptiste K. - [Visiter le site](https://votre-portfolio.com)
