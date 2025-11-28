@@ -1,8 +1,121 @@
-# 🚀 Cours Complet sur le Backend avec Next.js 14
+# 🚀 Cours Complet sur le Backend avec Next.js 16.0.1
+
+## 📚 Lexique pour Débutants
+
+### Qu'est-ce que Prisma ?
+
+Prisma est un outil qui facilite la communication entre votre application et votre base de données. C'est comme un traducteur qui permet à votre code JavaScript/TypeScript de parler facilement avec votre base de données.
+
+**En termes simples** : Imaginez que votre application est un client dans un restaurant. La base de données est la cuisine, et Prisma est le serveur qui prend votre commande (requête) et vous apporte votre plat (données).
+
+**Pourquoi utiliser Prisma ?**
+- Écriture de requêtes en JavaScript/TypeScript (pas besoin de SQL pur)
+- Vérification des types pour éviter les erreurs
+- Gestion des connexions à la base de données
+- Outils de migration pour mettre à jour la structure de votre base
+
+### Qu'est-ce que Zod ?
+
+Zod est une bibliothèque qui vous aide à valider que les données que vous recevez sont bien ce que vous attendez. C'est comme un garde du corps qui vérifie les identifiants à l'entrée d'une boîte de nuit.
+
+**Exemple simple :**
+```typescript
+// Définition d'un schéma de validation
+const userSchema = z.object({
+  email: z.string().email(),
+  age: z.number().min(18, "Doit avoir au moins 18 ans")
+});
+
+// Validation
+const result = userSchema.safeParse({
+  email: "test@example.com",
+  age: 20
+});
+
+if (!result.success) {
+  console.error("Données invalides !", result.error);
+}
+```
+
+**Pourquoi utiliser Zod ?**
+- Validation des données utilisateur
+- Vérification des types à l'exécution
+- Messages d'erreur clairs
+- Facile à utiliser avec TypeScript
+
+### Qu'est-ce qu'un Endpoint ?
+
+Un endpoint est une adresse (URL) à laquelle votre application peut envoyer des requêtes pour effectuer des actions spécifiques. C'est comme les différents services d'un restaurant :
+
+- `GET /menu` → Voir le menu (récupérer des données)
+- `POST /commande` → Passer une commande (créer des données)
+- `PUT /profil` → Mettre à jour son profil (modifier des données)
+- `DELETE /compte` → Supprimer son compte (supprimer des données)
+
+**Exemple concret :**
+- URL : `https://api.monportfolio.com/projets`
+- Méthode : `GET`
+- Réponse : Liste de tous les projets
+
+**Pourquoi c'est important ?**
+- Structure claire de l'API
+- Séparation des préoccupations
+- Facilité de maintenance
+
+### Qu'est-ce que le CRUD ?
+
+**CRUD** est un acronyme qui représente les quatre opérations fondamentales des applications de base de données :
+
+- **C**reate (Créer) - Ajouter de nouvelles données
+- **R**ead (Lire) - Récupérer des données
+- **U**pdate (Mettre à jour) - Modifier des données existantes
+- **D**elete (Supprimer) - Supprimer des données
+
+**Exemple avec une liste de tâches :**
+- **Créer** : Ajouter une nouvelle tâche
+- **Lire** : Afficher la liste des tâches
+- **Mettre à jour** : Cocher une tâche comme terminée
+- **Supprimer** : Enlever une tâche de la liste
+
+### `request: Request` vs `req, res`
+
+#### `request: Request` (Next.js)
+- Style moderne utilisant les standards du web
+- Retourne un objet `Response` natif
+- Asynchrone par défaut
+- Utilisé avec l'App Router de Next.js
+
+#### `req, res` (Node.js/Express)
+- Style plus traditionnel
+- Utilise des callbacks
+- API spécifique à Node.js/Express
+- Plus verbeux pour certaines opérations
+
+**Exemple comparatif :**
+
+```typescript
+// Next.js (App Router) - Style moderne
+export async function GET(request: Request) {
+  const data = await request.json();
+  return new Response(JSON.stringify({ message: "Bonjour" }), {
+    headers: { "Content-Type": "application/json" }
+  });
+}
+
+// Node.js/Express - Style classique
+app.get('/api/exemple', (req, res) => {
+  const data = req.body;
+  res.json({ message: "Bonjour" });
+});
+```
+
+**Quand utiliser lequel ?**
+- Pour les nouveaux projets Next.js (13+), utilisez `request: Request`
+- Pour les anciens projets ou avec Express, utilisez `req, res`
 
 ## Introduction
 
-Bienvenue dans ce cours complet sur le développement backend avec Next.js 14 ! Ce document couvrira tout ce dont vous avez besoin pour créer un backend robuste pour votre portfolio.
+Bienvenue dans ce cours complet sur le développement backend avec Next.js 16.0.1 ! Ce document est spécialement adapté à votre projet et couvrira tout ce dont vous avez besoin pour créer un backend robuste pour votre portfolio en utilisant les versions précises des dépendances de votre projet.
 
 ## 📚 Table des Matières
 
@@ -13,21 +126,112 @@ Bienvenue dans ce cours complet sur le développement backend avec Next.js 14 ! 
 5. [Déploiement](#-déploiement)
 6. [Projet Pratique](#-projet-pratique-mise-en-œuvre)
 
-## 🏗️ Architecture Next.js
+## 🏗️ Architecture Next.js 16.0.1
 
-### Structure des dossiers recommandée
+### Structure des dossiers recommandée pour Next.js 16
 
-```
+```typescript
+// Structure de base pour Next.js 16.0.1
 app/
-├── api/                 # Routes API
-│   └── projects/        # Endpoints pour les projets
-│       └── route.ts     # Gestion des requêtes
-├── lib/                 # Utilitaires partagés
-│   └── db.ts            # Connexion à la base de données
-└── types/               # Types TypeScript
+├── api/                           # Routes API (App Router)
+│   └── projects/            
+│       ├── route.ts               # Gestion des requêtes (GET, POST, etc.)
+│       └── [fonction].route.ts    # Routes dynamiques par fonction
+├── lib/                           # Utilitaires partagés
+│   ├── db.ts                      # Connexion à la base de données
+│   └── utils/                     # Fonctions utilitaires
+├── types/                         # Types TypeScript
+│   └── index.ts                   # Export des types
+└── components/                    # Composants partagés
+    └── ui/                        # Composants d'interface utilisateur
 ```
 
-## 🔄 Routes API
+### Points clés de Next.js 16.0.1 :
+- Prise en charge complète de React 19
+- Amélioration des performances du routeur App
+- Meilleure gestion des métadonnées
+- Support natif des Server Actions
+
+## 🔄 Routes API avec PostgreSQL
+
+### Exemple de CRUD complet avec PostgreSQL
+
+```typescript
+// app/api/projects/route.ts
+import { NextResponse } from 'next/server';
+import pool from '@/lib/db';
+
+// GET /api/projects
+export async function GET() {
+  try {
+    const result = await pool.query(
+      'SELECT * FROM projects ORDER BY created_at DESC'
+    );
+    return NextResponse.json(result.rows);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des projets:', error);
+    return NextResponse.json(
+      { error: 'Erreur serveur' },
+      { status: 500 }
+    );
+  }
+}
+
+// POST /api/projects
+export async function POST(request: Request) {
+  try {
+    const { title, description, imageUrl, technologies } = await request.json();
+    
+    const result = await pool.query(
+      'INSERT INTO projects (title, description, image_url, technologies) VALUES ($1, $2, $3, $4) RETURNING *',
+      [title, description, imageUrl, technologies]
+    );
+    
+    return NextResponse.json(result.rows[0], { status: 201 });
+  } catch (error) {
+    console.error('Erreur lors de la création du projet:', error);
+    return NextResponse.json(
+      { error: 'Erreur lors de la création du projet' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+### Exemple de route dynamique
+
+```typescript
+// app/api/projects/[id]/route.ts
+import { NextResponse } from 'next/server';
+import pool from '@/lib/db';
+
+export async function GET(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const result = await pool.query(
+      'SELECT * FROM projects WHERE id = $1',
+      [params.id]
+    );
+    
+    if (result.rows.length === 0) {
+      return NextResponse.json(
+        { error: 'Projet non trouvé' },
+        { status: 404 }
+      );
+    }
+    
+    return NextResponse.json(result.rows[0]);
+  } catch (error) {
+    console.error('Erreur lors de la récupération du projet:', error);
+    return NextResponse.json(
+      { error: 'Erreur serveur' },
+      { status: 500 }
+    );
+  }
+}
+```
 
 ### Création d'une Route API
 
@@ -58,15 +262,424 @@ export async function POST(request: Request) {
 - `PUT`/`PATCH` : Mettre à jour une ressource
 - `DELETE` : Supprimer une ressource
 
-## 🗃️ Gestion des Données
+## 🛠️ Validation des Données avec Zod
+
+### Schéma de validation pour les projets
+
+Voici comment nous pouvons utiliser Zod pour valider les données des projets :
+
+```typescript
+// lib/validations/project.ts
+import { z } from 'zod';
+
+export const projectSchema = z.object({
+  id: z.string().uuid().optional(),
+  name: z.string().min(3, 'Le nom doit contenir au moins 3 caractères'),
+  description: z.string().min(10, 'La description doit contenir au moins 10 caractères'),
+  technologies: z.array(z.string()).nonempty('Au moins une technologie est requise'),
+  img: z.string().url('URL d\'image invalide'),
+  codeLink: z.string().url('URL GitHub invalide').optional(),
+  liveLink: z.string().url('URL de démo invalide').optional()
+});
+
+export const validateProject = (data: unknown) => {
+  return projectSchema.safeParse(data);
+};
+```
+
+### Utilisation dans une route API
+
+Voici comment utiliser ce schéma dans une route API pour valider les données avant de les enregistrer :
+
+```typescript
+// app/api/projects/route.ts
+import { NextResponse } from 'next/server';
+import { validateProject } from '@/lib/validations/project';
+import { prisma } from '@/lib/db';
+
+export async function GET() {
+  try {
+    const projects = await prisma.project.findMany();
+    return NextResponse.json(projects);
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Erreur lors de la récupération des projets' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const data = await request.json();
+    const validation = validateProject(data);
+
+    if (!validation.success) {
+      return NextResponse.json(
+        { error: 'Données invalides', details: validation.error.issues },
+        { status: 400 }
+      );
+    }
+
+    const project = await prisma.project.create({
+      data: validation.data
+    });
+
+    return NextResponse.json(project, { status: 201 });
+  } catch (error) {
+    console.error('Erreur lors de la création du projet :', error);
+    return NextResponse.json(
+      { error: 'Erreur lors de la création du projet' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+## 🛠️ ORM pour Next.js : Prisma vs Sequelize
+
+### Pourquoi utiliser un ORM ?
+
+Un ORM (Object-Relational Mapping) est un outil qui fait le pont entre votre base de données relationnelle et votre code orienté objet. Voici pourquoi c'est utile :
+
+- **Productivité** : Moins de code à écrire
+- **Sécurité** : Protection contre les injections SQL
+- **Portabilité** : Changement de base de données plus facile
+- **Typage fort** : Meilleure détection des erreurs avec TypeScript
+
+## 🔄 Utilisation de Prisma (Recommandé)
+
+### Configuration initiale
+
+1. Installation :
+```bash
+npm install @prisma/client
+npm install -D prisma
+npx prisma init
+```
+
+2. Définition du schéma (`prisma/schema.prisma`) :
+```prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id            String   @id @default(uuid())
+  title         String
+  description   String
+  imageUrl      String   @map("image_url")
+  technologies  String[]
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("projects")
+}
+```
+
+### Exemple d'API avec Prisma
+
+```typescript
+// app/api/projects/route.ts
+import { NextResponse } from 'next/server';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+// GET /api/projects
+export async function GET() {
+  try {
+    const projects = await prisma.project.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
+    return NextResponse.json(projects);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des projets:', error);
+    return NextResponse.json(
+      { error: 'Erreur serveur' },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+// POST /api/projects
+export async function POST(request: Request) {
+  try {
+    const { title, description, imageUrl, technologies } = await request.json();
+    
+    const project = await prisma.project.create({
+      data: {
+        title,
+        description,
+        imageUrl,
+        technologies
+      }
+    });
+    
+    return NextResponse.json(project, { status: 201 });
+  } catch (error) {
+    console.error('Erreur lors de la création du projet:', error);
+    return NextResponse.json(
+      { error: 'Erreur lors de la création du projet' },
+      { status: 500 }
+    );
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+```
+
+## 🔄 Utilisation de Sequelize
+
+### Configuration initiale
+
+1. Installation :
+```bash
+npm install sequelize pg pg-hstore
+npm install -D @types/sequelize
+```
+
+2. Configuration de la connexion (`lib/db.ts`) :
+```typescript
+import { Sequelize } from 'sequelize';
+
+const sequelize = new Sequelize(
+  process.env.DATABASE_NAME!,
+  process.env.DATABASE_USER!,
+  process.env.DATABASE_PASSWORD,
+  {
+    host: process.env.DATABASE_HOST,
+    dialect: 'postgres',
+    logging: process.env.NODE_ENV === 'development' ? console.log : false,
+    define: {
+      underscored: true,
+      timestamps: true,
+      createdAt: 'created_at',
+      updatedAt: 'updated_at'
+    }
+  }
+);
+
+export default sequelize;
+```
+
+### Exemple d'API avec Sequelize
+
+```typescript
+// app/api/projects/route.ts
+import { NextResponse } from 'next/server';
+import { DataTypes, Model } from 'sequelize';
+import sequelize from '@/lib/db';
+
+// Définition du modèle
+class Project extends Model {
+  public id!: string;
+  public title!: string;
+  public description!: string;
+  public imageUrl!: string;
+  public technologies!: string[];
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
+
+Project.init({
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  description: DataTypes.TEXT,
+  imageUrl: {
+    type: DataTypes.STRING,
+    field: 'image_url'
+  },
+  technologies: DataTypes.ARRAY(DataTypes.STRING)
+}, {
+  sequelize,
+  modelName: 'Project',
+  tableName: 'projects',
+  timestamps: true,
+  createdAt: 'created_at',
+  updatedAt: 'updated_at'
+});
+
+// GET /api/projects
+export async function GET() {
+  try {
+    await sequelize.authenticate();
+    const projects = await Project.findAll({
+      order: [['created_at', 'DESC']]
+    });
+    return NextResponse.json(projects);
+  } catch (error) {
+    console.error('Erreur lors de la récupération des projets:', error);
+    return NextResponse.json(
+      { error: 'Erreur serveur' },
+      { status: 500 }
+    );
+  }
+}
+
+// POST /api/projects
+export async function POST(request: Request) {
+  try {
+    const { title, description, imageUrl, technologies } = await request.json();
+    
+    await sequelize.authenticate();
+    const project = await Project.create({
+      title,
+      description,
+      imageUrl,
+      technologies
+    });
+    
+    return NextResponse.json(project, { status: 201 });
+  } catch (error) {
+    console.error('Erreur lors de la création du projet:', error);
+    return NextResponse.json(
+      { error: 'Erreur lors de la création du projet' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+## 🔍 Comparaison Prisma vs Sequelize
+
+| Critère          | Prisma | Sequelize |
+|------------------|--------|-----------|
+| Facilité d'utilisation | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
+| Performance | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+| Typage TypeScript | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
+| Documentation | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| Communauté | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| Migration | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
+| Relations | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| Requêtes complexes | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+| Intégration Next.js | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ |
+
+## 🏆 Recommandation
+
+Pour un nouveau projet Next.js, nous recommandons fortement **Prisma** pour :
+- Sa facilité d'utilisation
+- Son excellente intégration avec TypeScript
+- Son système de migration intégré
+- Sa documentation claire et moderne
+
+## 🗃️ Gestion des Données avec PostgreSQL
+
+### Modèle de données du projet
+
+Notre application utilise une structure de données bien définie pour les projets. Voici l'interface TypeScript qui définit la structure d'un projet :
+
+```typescript
+// app/types/Project.ts
+export interface Project {
+  id: string;
+  img: string;
+  name: string;
+  description: string;
+  technologies: string[];
+  codeLink?: string;
+  liveLink?: string;
+}
+```
+
+**Exemple de données de projet :**
+```typescript
+// data/projects.ts
+const projects: Project[] = [
+  {
+    id: "forums",
+    img: "/images/projets/home_Page.png",
+    name: "GamerChallenge",
+    description: "Projet de fin de formation",
+    technologies: ["EJS", "Node.js", "PostgreSQL"],
+    codeLink: "https://github.com/B-Kinda/GamerChallenges"
+  },
+  // ... autres projets
+];
+```
+
+### Pourquoi PostgreSQL avec Next.js ?
+
+PostgreSQL est un choix idéal pour les applications Next.js car :
+- Gestion robuste des transactions
+- Support natif du JSONB pour des données semi-structurées
+- Extensions puissantes (PostGIS, Full-Text Search, etc.)
+- Compatible avec les Server Components et les API Routes
+
+### Configuration de PostgreSQL
 
 ### Configuration de Prisma
 
-1. **Installation** :
+1. **Installation de Prisma**
 
 ```bash
+# Installation des dépendances nécessaires
 npm install @prisma/client
+npm install -D prisma
+
+# Initialisation de Prisma
 npx prisma init
+
+# Générer le client Prisma (à exécuter après chaque modification du schéma)
+npx prisma generate
+```
+
+### Configuration de la connexion PostgreSQL
+
+Créez un fichier `lib/db.ts` pour gérer la connexion :
+
+```typescript
+import { Pool } from 'pg';
+
+// Configuration du pool de connexions
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASSWORD,
+  port: parseInt(process.env.DB_PORT || '5432'),
+  ssl: process.env.NODE_ENV === 'production' 
+    ? { rejectUnauthorized: false } 
+    : false
+});
+
+// Test de connexion
+pool.on('connect', () => {
+  console.log('Connecté à la base de données PostgreSQL');
+});
+
+export default pool;
+```
+
+### Configuration de Prisma avec PostgreSQL
+
+Assurez-vous d'avoir ces dépendances dans votre `package.json` :
+
+```json
+{
+  "dependencies": {
+    "@prisma/client": "^5.0.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.0.0"
+  }
+}
 ```
 
 2. **Schéma Prisma** :
@@ -78,7 +691,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -153,17 +766,56 @@ export async function POST(request: Request) {
 }
 ```
 
-## 🚀 Déploiement
+## 🚀 Déploiement avec Next.js 16
 
-### Configuration pour Production
+### Configuration pour Production avec PostgreSQL
 
-1. **Variables d'environnement** :
-   Créez un fichier `.env.local` :
+1. **Base de données en production** :
+   - Utilisez un service géré comme Supabase, Neon, ou Amazon RDS
+   - Configurez un pool de connexions adapté à votre charge
+
+2. **Migrations** :
+   ```bash
+   # Créer une nouvelle migration
+   npx prisma migrate dev --name init
+   
+   # Appliquer les migrations en production
+   npx prisma migrate deploy
    ```
+
+3. **Optimisation des performances** :
+   - Utilisez des index pour les requêtes fréquentes
+   - Mettez en place du caching avec Redis si nécessaire
+   - Utilisez des vues matérialisées pour les requêtes complexes
+
+1. **Fichier .env.local** :
+   Créez un fichier `.env.local` à la racine de votre projet :
+   ```env
+   # Base de données
    DATABASE_URL="votre-url-de-connexion"
-   NEXTAUTH_SECRET="votre-secret-tres-long"
+   
+   # Authentification (si utilisée)
    NEXTAUTH_URL="http://localhost:3000"
+   NEXTAUTH_SECRET="générer-une-chaîne-sécurisée"
+   
+   # Environnement
    NODE_ENV="production"
+   
+   # Configuration Next.js
+   NEXT_PUBLIC_SITE_URL="https://votresite.com"
+   ```
+
+2. **Scripts de build** :
+   Votre `package.json` contient déjà les scripts nécessaires :
+   ```json
+   {
+     "scripts": {
+       "dev": "next dev --webpack",
+       "build": "next build --webpack",
+       "start": "next start",
+       "lint": "eslint"
+     }
+   }
    ```
 
 2. **Build pour production** :
@@ -326,7 +978,33 @@ export default function ProjectCard({ project, onDelete, isAdmin = false }: Proj
 }
 ```
 
-## 🛠️ Bonnes Pratiques
+## 🛠️ Bonnes Pratiques avec PostgreSQL
+
+1. **Sécurité**
+   - Utilisez des requêtes paramétrées pour éviter les injections SQL
+   - Limitez les permissions de l'utilisateur de la base de données
+   - Activez SSL pour les connexions en production
+
+2. **Performances**
+   ```sql
+   -- Exemple de création d'index
+   CREATE INDEX idx_projects_technologies ON projects USING GIN(technologies);
+   
+   -- Pour les recherches plein texte
+   CREATE EXTENSION IF NOT EXISTS pg_trgm;
+   CREATE INDEX idx_projects_title_trgm ON projects USING GIN(title gin_trgm_ops);
+   ```
+
+3. **Maintenance**
+   - Planifiez des sauvegardes régulières
+   - Surveillez les performances avec `pg_stat_statements`
+   - Utilisez `EXPLAIN ANALYZE` pour optimiser les requêtes lentes
+
+4. **Extensions utiles**
+   - `pgcrypto` pour le chiffrement
+   - `uuid-ossp` pour les UUID
+   - `pg_stat_statements` pour le monitoring
+   - `postgis` pour les données géographiques
 
 1. **Validation** : Toujours valider les entrées utilisateur
 2. **Gestion des erreurs** : Intercepter et gérer les erreurs de manière appropriée
@@ -334,21 +1012,47 @@ export default function ProjectCard({ project, onDelete, isAdmin = false }: Proj
 4. **Performance** : Mettre en place du cache quand c'est pertinent
 5. **Documentation** : Documenter vos API avec Swagger/OpenAPI
 
-## 📚 Ressources Supplémentaires
+## 📚 Ressources Spécifiques à Next.js 16.0.1
 
-1. [Documentation Next.js](https://nextjs.org/docs)
-2. [Documentation Prisma](https://www.prisma.io/docs)
-3. [Documentation TypeScript](https://www.typescriptlang.org/docs/)
-4. [Documentation Zod](https://zod.dev/)
-5. [NextAuth.js Documentation](https://next-auth.js.org/)
+1. [Documentation Next.js 16.0.1](https://nextjs.org/docs/16.0.1)
+2. [Guide de migration vers Next.js 16](https://nextjs.org/docs/16.0.1/upgrading)
+3. [Documentation Prisma](https://www.prisma.io/docs)
+4. [TypeScript avec Next.js](https://nextjs.org/docs/16.0.1/basic-features/typescript)
+5. [Framer Motion avec React 19](https://www.framer.com/motion/)
+6. [Guide d'optimisation des performances](https://nextjs.org/docs/16.0.1/basic-features/optimizations)
+7. [Gestion des métadonnées](https://nextjs.org/docs/16.0.1/app/building-your-application/optimizing/metadata)
+8. [API Routes dans Next.js 16](https://nextjs.org/docs/16.0.1/app/building-your-application/routing/route-handlers)
 
-## 🎯 Prochaines Étapes
+## 🎯 Prochaines Étapes pour Votre Projet
 
-1. Implémenter l'authentification avec NextAuth.js
-2. Ajouter des tests unitaires et d'intégration
-3. Mettre en place un système de cache avec Redis
-4. Optimiser les performances avec ISR (Incremental Static Regeneration)
-5. Configurer le monitoring et les logs
+1. **Authentification**
+   - Implémenter NextAuth.js v5 (compatible avec Next.js 16)
+   - Configurer des fournisseurs d'authentification (Google, GitHub, etc.)
+   
+2. **Tests**
+   - Configurer Jest et React Testing Library
+   - Écrire des tests unitaires pour les composants
+   - Implémenter des tests d'intégration pour les routes API
+   
+3. **Optimisation des performances**
+   - Mettre en place le chargement différé (lazy loading)
+   - Utiliser les Server Components de manière optimale
+   - Configurer le cache HTTP
+   
+4. **Sécurité**
+   - Valider toutes les entrées utilisateur
+   - Implémenter une protection CSRF
+   - Configurer les en-têtes de sécurité
+   
+5. **Déploiement**
+   - Configurer Vercel pour le déploiement
+   - Mettre en place des environnements multiples (dev, staging, prod)
+   - Configurer les redirections et réécritures d'URL
+
+6. **Améliorations futures**
+   - Intégrer un système de commentaires
+   - Ajouter un tableau de bord d'administration
+   - Mettre en place des webhooks pour le déploiement continu
 
 ---
 
