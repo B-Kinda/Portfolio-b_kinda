@@ -1,8 +1,9 @@
-import CardSkeleton from "@/components/cardSkeleton";
+import HeroSection from "@/components/heroSection";
+
 export default function Home() {
 	return (
 		<main className="min-h-screen p-8">
-			<CardSkeleton />
+			<HeroSection />
 		</main>
 	);
 }

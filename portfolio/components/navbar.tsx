@@ -13,11 +13,11 @@ import { Link } from "@heroui/link";
 import { Input } from "@heroui/input";
 import { link as linkStyles } from "@heroui/theme";
 import NextLink from "next/link";
+import { User } from "@heroui/user";
 import clsx from "clsx";
-
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
-import { TwitterIcon, GithubIcon, SearchIcon, Logo } from "@/components/icons";
+import { GithubIcon, SearchIcon, Logo } from "@/components/icons";
 
 export const Navbar = () => {
 	const searchInput = (
@@ -47,7 +47,7 @@ export const Navbar = () => {
 				<NavbarBrand as="li" className="gap-3 max-w-fit">
 					<NextLink className="flex justify-start items-center gap-1" href="/">
 						<Logo />
-						<p className="font-bold text-inherit">ACME</p>
+						<p className="font-bold text-inherit">B-Kinda</p>
 					</NextLink>
 				</NavbarBrand>
 				<ul className="hidden lg:flex gap-4 justify-start ml-2">
@@ -73,9 +73,22 @@ export const Navbar = () => {
 				justify="end"
 			>
 				<NavbarItem className="hidden sm:flex gap-2">
-					<Link isExternal aria-label="Twitter" href={siteConfig.links.twitter}>
-						<TwitterIcon className="text-default-500" />
-					</Link>
+					<User
+						avatarProps={{
+							src: "https://avatars.githubusercontent.com/u/188704654?v=4",
+						}}
+						description={
+							<Link
+								isExternal
+								href="https://www.linkedin.com/in/blb34/"
+								size="sm"
+							>
+								@LebretonBaptiste
+							</Link>
+						}
+						name="Junior Garcia"
+					/>
+
 					<Link isExternal aria-label="Github" href={siteConfig.links.github}>
 						<GithubIcon className="text-default-500" />
 					</Link>
